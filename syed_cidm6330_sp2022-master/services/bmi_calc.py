@@ -1,4 +1,5 @@
 import bisect
+from datetime import date
 
 def bmi_score(height: float, weight: float, gender, age: int) -> float:
     # always provide credit for the source of any calculation
@@ -6,7 +7,17 @@ def bmi_score(height: float, weight: float, gender, age: int) -> float:
     bmi = round(weight / ((height/100) ** 2))
     return bmi
 
-def bmi_category(age, bmi_score, optimal_bmi_range_min_ages, optimal_bmi_ranges, optimal_bmi_range, bmi_categories, bmi_cat_thresholds):
+def age(date_of_birth):
+    #https://www.codingem.com/how-to-calculate-age-in-python/
+    today = date.today()
+    one_or_zero = ((today.month, today.day) < (date_of_birth.month, date_of_birth.day))
+    year_difference = today.year - date_of_birth.year
+    age = year_difference - one_or_zero
+    
+    return age
+
+def bmi_category(date_of_birth, age, bmi_score, optimal_bmi_range_min_ages, optimal_bmi_ranges, optimal_bmi_range, bmi_categories, bmi_cat_thresholds):
+
     if age < 19:
         print("You're too young for this and I'm concerned you may be at risk of developing an eating disorder.")
         exit()
